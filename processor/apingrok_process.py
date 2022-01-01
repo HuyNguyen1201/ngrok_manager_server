@@ -45,7 +45,24 @@ def release_all_apingrok():
 def release_ngroks(data):
     with open('ngrok_dict.pkl', 'rb') as f:
         ngrok_dict = pickle.load(f)
-    print(data['apikey'])
     ngrok_dict[data['apikey']] = False
     with open('ngrok_dict.pkl', 'wb') as f:
         pickle.dump(ngrok_dict, f)
+
+
+def delete_all_ngrok():
+    with open('ngrok_dict.pkl', 'wb') as f:
+        pickle.dump(dict(), f)
+    return True
+
+
+def delete_ngroks(data):
+    apikey = data['apikey']
+    with open('ngrok_dict.pkl', 'rb') as f:
+        ngrok_dict = pickle.load(f)
+    if apikey in ngrok_dict.keys():
+        del ngrok_dict[apikey]
+        with open('ngrok_dict.pkl', 'wb') as f:
+            pickle.dump(ngrok_dict, f)
+        return True
+    return False

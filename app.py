@@ -51,6 +51,20 @@ def release_ngroks():
     return jsonify({'status': 'fail'})
 
 
+@app.route("/api/delete-all-ngrokapi", methods=['GET'])
+def release_all_ngrok():
+    apingrok_process.delete_all_ngrok()
+    return jsonify({'status': 'sucess'})
+
+
+@app.route("/api/delete-ngrokapis", methods=['POST'])
+def release_ngroks():
+    if request.json:
+        apingrok_process.delete_ngroks(request.json)
+        return jsonify({'status': 'sucess'})
+    return jsonify({'status': 'fail'})
+
+
 @app.route("/shutdown", methods=['GET'])
 def shutdown():
     '''Shutdown the server'''
